@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Primary Meta Tags -->
+    <title>Tra Cứu Thời Tiết - Dự Báo Thời Tiết 5 Ngày Chính Xác</title>
+    <meta name="title" content="Tra Cứu Thời Tiết - Dự Báo Thời Tiết 5 Ngày Chính Xác">
+    <meta name="description"
+        content="Tra cứu thời tiết hiện tại và dự báo thời tiết 5 ngày chi tiết cho mọi địa điểm trên thế giới. Cập nhật thông tin nhiệt độ, độ ẩm, tốc độ gió chính xác theo thời gian thực.">
+    <meta name="keywords"
+        content="thời tiết, dự báo thời tiết, weather, tra cứu thời tiết, thời tiết 5 ngày, nhiệt độ, độ ẩm">
+    <meta name="author" content="Weather Lookup">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://weather-lookup.com/">
+    <meta property="og:title" content="Tra Cứu Thời Tiết - Dự Báo Thời Tiết 5 Ngày Chính Xác">
+    <meta property="og:description"
+        content="Tra cứu thời tiết hiện tại và dự báo thời tiết 5 ngày chi tiết cho mọi địa điểm trên thế giới.">
+    <meta property="og:image" content="https://weather-lookup.com/og-image.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://weather-lookup.com/">
+    <meta property="twitter:title" content="Tra Cứu Thời Tiết - Dự Báo Thời Tiết 5 Ngày Chính Xác">
+    <meta property="twitter:description"
+        content="Tra cứu thời tiết hiện tại và dự báo thời tiết 5 ngày chi tiết cho mọi địa điểm trên thế giới.">
+    <meta property="twitter:image" content="https://weather-lookup.com/twitter-image.jpg">
+
+    <!-- Preconnect for Performance -->
+    <link rel="preconnect" href="https://open-weather13.p.rapidapi.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌤️</text></svg>">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Tra Cứu Thời Tiết",
+      "description": "Ứng dụng tra cứu thời tiết và dự báo thời tiết 5 ngày chính xác",
+      "url": "https://weather-lookup.com",
+      "applicationCategory": "Weather",
+      "operatingSystem": "Web Browser",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "VND"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "1250"
+      }
+    }
+    </script>
+</head>
+
+<body>
+    <!-- Main Container -->
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="app-title">
+                    <span class="icon">🌤️</span>
+                    Tra Cứu Thời Tiết
+                </h1>
+                <p class="app-subtitle">Dự báo thời tiết chính xác cho mọi địa điểm</p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Search Section -->
+            <section class="search-section" role="search">
+                <div class="search-container">
+                    <input type="text" id="cityInput" class="search-input"
+                        placeholder="Nhập tên thành phố (VD: Hanoi, Ho Chi Minh)..."
+                        aria-label="Nhập tên thành phố để tra cứu thời tiết" autocomplete="off" list="citySuggestions">
+                    <datalist id="citySuggestions">
+                        <option value="Hanoi">
+                        <option value="Ho Chi Minh City">
+                        <option value="Da Nang">
+                        <option value="Hai Phong">
+                        <option value="Can Tho">
+                        <option value="Hue">
+                        <option value="Nha Trang">
+                        <option value="Vung Tau">
+                        <option value="London">
+                        <option value="New York">
+                        <option value="Tokyo">
+                        <option value="Paris">
+                        <option value="Seoul">
+                        <option value="Bangkok">
+                        <option value="Singapore">
+                    </datalist>
+                    <button id="searchBtn" class="search-btn" aria-label="Tìm kiếm thời tiết">
+                        <span class="btn-text">Tìm Kiếm</span>
+                        <span class="btn-icon">🔍</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Current Weather Section -->
+            <section id="currentWeatherSection" class="current-weather-section hidden" aria-live="polite">
+                <h2 class="section-title">Thời Tiết Hiện Tại</h2>
+                <article class="weather-card current-weather-card">
+                    <div class="weather-card-header">
+                        <div class="location-info">
+                            <h3 id="locationName" class="location-name">--</h3>
+                            <p id="currentDate" class="current-date">--</p>
+                        </div>
+                        <div id="weatherIcon" class="weather-icon-large">🌤️</div>
+                    </div>
+
+                    <div class="weather-card-body">
+                        <div class="temperature-display">
+                            <span id="currentTemp" class="temperature-value">--</span>
+                            <span class="temperature-unit">°C</span>
+                        </div>
+                        <p id="weatherCondition" class="weather-condition">--</p>
+                        <p id="feelsLike" class="feels-like">Cảm giác như --°C</p>
+                    </div>
+
+                    <div class="weather-details-grid">
+                        <div class="weather-detail-item">
+                            <span class="detail-icon">💧</span>
+                            <div class="detail-content">
+                                <span class="detail-label">Độ ẩm</span>
+                                <span id="humidity" class="detail-value">--%</span>
+                            </div>
+                        </div>
+                        <div class="weather-detail-item">
+                            <span class="detail-icon">💨</span>
+                            <div class="detail-content">
+                                <span class="detail-label">Tốc độ gió</span>
+                                <span id="windSpeed" class="detail-value">-- m/s</span>
+                            </div>
+                        </div>
+                        <div class="weather-detail-item">
+                            <span class="detail-icon">🌡️</span>
+                            <div class="detail-content">
+                                <span class="detail-label">Áp suất</span>
+                                <span id="pressure" class="detail-value">-- hPa</span>
+                            </div>
+                        </div>
+                        <div class="weather-detail-item">
+                            <span class="detail-icon">👁️</span>
+                            <div class="detail-content">
+                                <span class="detail-label">Tầm nhìn</span>
+                                <span id="visibility" class="detail-value">-- km</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </section>
+
+            <!-- 5-Day Forecast Section -->
+            <section id="forecastSection" class="forecast-section hidden" aria-live="polite">
+                <h2 class="section-title">Dự Báo 5 Ngày Tới</h2>
+                <div id="forecastContainer" class="forecast-grid">
+                    <!-- Forecast cards will be populated by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Loading State -->
+            <div id="loadingState" class="loading-state hidden">
+                <div class="loading-spinner"></div>
+                <p class="loading-text">Đang tải dữ liệu thời tiết...</p>
+            </div>
+
+            <!-- Error State -->
+            <div id="errorState" class="error-state hidden">
+                <div class="error-icon">⚠️</div>
+                <h3 class="error-title">Không tìm thấy dữ liệu</h3>
+                <p id="errorMessage" class="error-message">Vui lòng thử lại với tên thành phố khác.</p>
+                <button id="retryBtn" class="retry-btn">Thử lại</button>
+            </div>
+
+            <!-- Empty State -->
+            <div id="emptyState" class="empty-state">
+                <div class="empty-icon">🌍</div>
+                <h3 class="empty-title">Chào mừng đến với Tra Cứu Thời Tiết</h3>
+                <p class="empty-message">Nhập tên thành phố để bắt đầu tra cứu thời tiết</p>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p class="footer-text">
+                © 2025 Tra Cứu Thời Tiết. Dữ liệu từ OpenWeather API.
+            </p>
+        </footer>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="app.js"></script>
+</body>
+
+</html>

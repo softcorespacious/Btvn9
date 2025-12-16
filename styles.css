@@ -1,0 +1,686 @@
+/* ============================================
+   CSS Custom Properties (Design System)
+   ============================================ */
+:root {
+    /* Color Palette */
+    --color-primary: #6366f1;
+    --color-primary-dark: #4f46e5;
+    --color-primary-light: #818cf8;
+    --color-secondary: #8b5cf6;
+    --color-accent: #ec4899;
+    
+    /* Background Colors */
+    --color-bg-primary: #0f172a;
+    --color-bg-secondary: #1e293b;
+    --color-bg-tertiary: #334155;
+    
+    /* Text Colors */
+    --color-text-primary: #f1f5f9;
+    --color-text-secondary: #cbd5e1;
+    --color-text-muted: #94a3b8;
+    
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    --gradient-warm: linear-gradient(135deg, #ffa751 0%, #ffe259 100%);
+    --gradient-cool: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    
+    /* Spacing */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 1.5rem;
+    --spacing-lg: 2rem;
+    --spacing-xl: 3rem;
+    --spacing-2xl: 4rem;
+    
+    /* Border Radius */
+    --radius-sm: 0.5rem;
+    --radius-md: 1rem;
+    --radius-lg: 1.5rem;
+    --radius-xl: 2rem;
+    
+    /* Shadows */
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.2);
+    --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.3);
+    --shadow-glow: 0 0 40px rgba(99, 102, 241, 0.3);
+    
+    /* Transitions */
+    --transition-fast: 150ms ease-in-out;
+    --transition-normal: 300ms ease-in-out;
+    --transition-slow: 500ms ease-in-out;
+    
+    /* Typography */
+    --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-size-xs: 0.75rem;
+    --font-size-sm: 0.875rem;
+    --font-size-base: 1rem;
+    --font-size-lg: 1.125rem;
+    --font-size-xl: 1.25rem;
+    --font-size-2xl: 1.5rem;
+    --font-size-3xl: 2rem;
+    --font-size-4xl: 3rem;
+}
+
+/* ============================================
+   Reset & Base Styles
+   ============================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-family);
+    background: var(--color-bg-primary);
+    color: var(--color-text-primary);
+    line-height: 1.6;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* Animated gradient background */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--gradient-primary);
+    opacity: 0.05;
+    z-index: -1;
+    animation: gradientShift 15s ease infinite;
+}
+
+@keyframes gradientShift {
+    0%, 100% { opacity: 0.05; }
+    50% { opacity: 0.1; }
+}
+
+/* ============================================
+   Layout
+   ============================================ */
+.app-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: var(--spacing-md);
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* ============================================
+   Header
+   ============================================ */
+.header {
+    text-align: center;
+    margin-bottom: var(--spacing-xl);
+    animation: fadeInDown 0.6s ease-out;
+}
+
+.header-content {
+    padding: var(--spacing-lg) 0;
+}
+
+.app-title {
+    font-size: var(--font-size-4xl);
+    font-weight: 800;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: var(--spacing-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-sm);
+}
+
+.app-title .icon {
+    font-size: 3.5rem;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
+.app-subtitle {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-secondary);
+    font-weight: 400;
+}
+
+/* ============================================
+   Main Content
+   ============================================ */
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xl);
+}
+
+/* ============================================
+   Search Section
+   ============================================ */
+.search-section {
+    animation: fadeInUp 0.6s ease-out 0.2s backwards;
+}
+
+.search-container {
+    display: flex;
+    gap: var(--spacing-sm);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.search-input {
+    flex: 1;
+    padding: var(--spacing-md) var(--spacing-lg);
+    font-size: var(--font-size-lg);
+    font-family: var(--font-family);
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-lg);
+    color: var(--color-text-primary);
+    backdrop-filter: blur(10px);
+    transition: all var(--transition-normal);
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+}
+
+.search-input::placeholder {
+    color: var(--color-text-muted);
+}
+
+.search-btn {
+    padding: var(--spacing-md) var(--spacing-xl);
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    font-family: var(--font-family);
+    background: var(--gradient-primary);
+    border: none;
+    border-radius: var(--radius-lg);
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    transition: all var(--transition-normal);
+    box-shadow: var(--shadow-md);
+}
+
+.search-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg), var(--shadow-glow);
+}
+
+.search-btn:active {
+    transform: translateY(0);
+}
+
+.btn-icon {
+    font-size: var(--font-size-xl);
+}
+
+/* ============================================
+   Section Titles
+   ============================================ */
+.section-title {
+    font-size: var(--font-size-2xl);
+    font-weight: 700;
+    margin-bottom: var(--spacing-lg);
+    text-align: center;
+    color: var(--color-text-primary);
+}
+
+/* ============================================
+   Weather Cards (Glassmorphism)
+   ============================================ */
+.weather-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-lg);
+    box-shadow: var(--shadow-lg);
+    transition: all var(--transition-normal);
+}
+
+.weather-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg), 0 0 30px rgba(99, 102, 241, 0.2);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* ============================================
+   Current Weather Card
+   ============================================ */
+.current-weather-section {
+    animation: fadeInUp 0.6s ease-out 0.3s backwards;
+}
+
+.current-weather-card {
+    max-width: 600px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.weather-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: var(--spacing-lg);
+}
+
+.location-name {
+    font-size: var(--font-size-2xl);
+    font-weight: 700;
+    margin-bottom: var(--spacing-xs);
+}
+
+.current-date {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-base);
+}
+
+.weather-icon-large {
+    font-size: 5rem;
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.4));
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+.weather-card-body {
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+    padding: var(--spacing-lg) 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.temperature-display {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 0.25rem;
+    margin-bottom: var(--spacing-sm);
+}
+
+.temperature-value {
+    font-size: 5rem;
+    font-weight: 800;
+    line-height: 1;
+    background: var(--gradient-warm);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.temperature-unit {
+    font-size: var(--font-size-2xl);
+    font-weight: 600;
+    color: var(--color-text-secondary);
+}
+
+.weather-condition {
+    font-size: var(--font-size-xl);
+    font-weight: 600;
+    margin-bottom: var(--spacing-xs);
+    text-transform: capitalize;
+}
+
+.feels-like {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-base);
+}
+
+/* Weather Details Grid */
+.weather-details-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-md);
+}
+
+.weather-detail-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm);
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: var(--radius-md);
+    transition: background var(--transition-fast);
+}
+
+.weather-detail-item:hover {
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.detail-icon {
+    font-size: var(--font-size-2xl);
+}
+
+.detail-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.detail-label {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+}
+
+.detail-value {
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    color: var(--color-text-primary);
+}
+
+/* ============================================
+   Forecast Section
+   ============================================ */
+.forecast-section {
+    animation: fadeInUp 0.6s ease-out 0.4s backwards;
+}
+
+.forecast-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-md);
+}
+
+.forecast-card {
+    text-align: center;
+    padding: var(--spacing-md);
+}
+
+.forecast-date {
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    margin-bottom: var(--spacing-xs);
+    color: var(--color-text-primary);
+}
+
+.forecast-day {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--spacing-sm);
+}
+
+.forecast-icon {
+    font-size: 3rem;
+    margin: var(--spacing-sm) 0;
+    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
+}
+
+.forecast-temp {
+    font-size: var(--font-size-2xl);
+    font-weight: 700;
+    margin-bottom: var(--spacing-xs);
+    background: var(--gradient-cool);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.forecast-description {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--spacing-sm);
+    text-transform: capitalize;
+}
+
+.forecast-details {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+}
+
+/* ============================================
+   Loading State
+   ============================================ */
+.loading-state {
+    text-align: center;
+    padding: var(--spacing-2xl);
+    animation: fadeIn 0.3s ease-out;
+}
+
+.loading-spinner {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto var(--spacing-md);
+    border: 4px solid rgba(255, 255, 255, 0.1);
+    border-top-color: var(--color-primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.loading-text {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-secondary);
+}
+
+/* ============================================
+   Error State
+   ============================================ */
+.error-state {
+    text-align: center;
+    padding: var(--spacing-2xl);
+    animation: fadeIn 0.3s ease-out;
+}
+
+.error-icon {
+    font-size: 4rem;
+    margin-bottom: var(--spacing-md);
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
+.error-title {
+    font-size: var(--font-size-2xl);
+    font-weight: 700;
+    margin-bottom: var(--spacing-sm);
+    color: var(--color-accent);
+}
+
+.error-message {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--spacing-lg);
+}
+
+.retry-btn {
+    padding: var(--spacing-sm) var(--spacing-lg);
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    font-family: var(--font-family);
+    background: var(--gradient-secondary);
+    border: none;
+    border-radius: var(--radius-md);
+    color: white;
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    box-shadow: var(--shadow-md);
+}
+
+.retry-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+/* ============================================
+   Empty State
+   ============================================ */
+.empty-state {
+    text-align: center;
+    padding: var(--spacing-2xl);
+    animation: fadeIn 0.6s ease-out 0.5s backwards;
+}
+
+.empty-icon {
+    font-size: 5rem;
+    margin-bottom: var(--spacing-md);
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
+    animation: float 3s ease-in-out infinite;
+}
+
+.empty-title {
+    font-size: var(--font-size-2xl);
+    font-weight: 700;
+    margin-bottom: var(--spacing-sm);
+}
+
+.empty-message {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-secondary);
+}
+
+/* ============================================
+   Footer
+   ============================================ */
+.footer {
+    margin-top: var(--spacing-2xl);
+    padding: var(--spacing-lg) 0;
+    text-align: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-text {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-sm);
+}
+
+/* ============================================
+   Utility Classes
+   ============================================ */
+.hidden {
+    display: none !important;
+}
+
+/* ============================================
+   Animations
+   ============================================ */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ============================================
+   Responsive Design
+   ============================================ */
+@media (max-width: 768px) {
+    :root {
+        --font-size-4xl: 2rem;
+        --font-size-3xl: 1.5rem;
+        --font-size-2xl: 1.25rem;
+    }
+    
+    .app-container {
+        padding: var(--spacing-sm);
+    }
+    
+    .app-title {
+        font-size: var(--font-size-3xl);
+        flex-direction: column;
+        gap: var(--spacing-xs);
+    }
+    
+    .app-title .icon {
+        font-size: 2.5rem;
+    }
+    
+    .search-container {
+        flex-direction: column;
+    }
+    
+    .search-btn {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .weather-details-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .temperature-value {
+        font-size: 4rem;
+    }
+    
+    .forecast-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .search-input,
+    .search-btn {
+        font-size: var(--font-size-base);
+        padding: var(--spacing-sm) var(--spacing-md);
+    }
+    
+    .weather-icon-large {
+        font-size: 4rem;
+    }
+    
+    .temperature-value {
+        font-size: 3rem;
+    }
+}
+
+/* ============================================
+   Print Styles
+   ============================================ */
+@media print {
+    body {
+        background: white;
+        color: black;
+    }
+    
+    .search-section,
+    .footer {
+        display: none;
+    }
+}
